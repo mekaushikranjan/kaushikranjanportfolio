@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     // Initialize scroll state on mount
@@ -40,25 +38,32 @@ const Navigation = () => {
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-4xl px-4">
       <nav className={`mx-auto transition-all duration-500 ease-in-out rounded-2xl border border-border/50 backdrop-blur-md shadow-lg ${
         scrolled 
-          ? 'bg-background/95 max-w-xs' 
+          ? 'bg-background/95 max-w-lg' 
           : 'bg-background/80 max-w-4xl'
       }`}>
         <div className="px-6">
           <div className={`flex justify-between items-center transition-all duration-500 ${
-            scrolled ? 'h-12' : 'h-16'
+            scrolled ? 'h-16' : 'h-16'
           }`}>
-            {/* Logo and Available for Work Text */}
+            {/* Profile Image, Name and Available for Work Text */}
             <div className="flex-shrink-0 flex items-center space-x-3">
-              <span className={`font-bold font-poppins gradient-text transition-all duration-300 ${
-                scrolled ? 'text-lg' : 'text-2xl'
-              }`}>
+              <div className={`w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold transition-all duration-300 ${
+                scrolled ? 'w-8 h-8 text-sm' : 'w-10 h-10'
+              }`} data-testid="profile-image">
                 KR
-              </span>
-              {scrolled && (
-                <span className="text-sm font-medium text-accent animate-pulse" data-testid="available-for-work">
-                  Available for work
+              </div>
+              <div className="flex flex-col">
+                <span className={`font-bold font-poppins gradient-text transition-all duration-300 ${
+                  scrolled ? 'text-base' : 'text-xl'
+                }`} data-testid="profile-name">
+                  Kaushik Ranjan
                 </span>
-              )}
+                {scrolled && (
+                  <span className="text-xs font-medium text-accent animate-pulse" data-testid="available-for-work">
+                    Available for work
+                  </span>
+                )}
+              </div>
             </div>
             
             {/* Desktop Navigation */}
@@ -78,31 +83,10 @@ const Navigation = () => {
                 ))}
               </div>
               
-              {/* Theme Toggle */}
-              <div className="ml-4 pl-4 border-l border-border/50">
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors duration-300"
-                  data-testid="theme-toggle"
-                  aria-label="Toggle theme"
-                >
-                  {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-                </button>
-              </div>
             </div>
             
             {/* Mobile Actions */}
-            <div className="md:hidden flex items-center space-x-3">
-              {/* Mobile Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors duration-300"
-                data-testid="mobile-theme-toggle"
-                aria-label="Toggle theme"
-              >
-                {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
-              </button>
-              
+            <div className="md:hidden flex items-center">
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}

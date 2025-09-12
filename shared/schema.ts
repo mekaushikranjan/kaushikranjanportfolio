@@ -30,6 +30,12 @@ export const insertContactMessageSchema = createInsertSchema(contactMessages).pi
   email: true,
   subject: true,
   message: true,
+}).extend({
+  firstName: z.string().min(1, "First name is required").max(50, "First name must be 50 characters or less").trim(),
+  lastName: z.string().min(1, "Last name is required").max(50, "Last name must be 50 characters or less").trim(),
+  email: z.string().email("Please enter a valid email address").max(254, "Email must be 254 characters or less").trim().toLowerCase(),
+  subject: z.string().min(1, "Subject is required").max(200, "Subject must be 200 characters or less").trim(),
+  message: z.string().min(10, "Message must be at least 10 characters").max(2000, "Message must be 2000 characters or less").trim(),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;

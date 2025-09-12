@@ -33,22 +33,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all contact messages (for admin purposes)
-  app.get("/api/contact", async (req, res) => {
-    try {
-      const messages = await storage.getContactMessages();
-      res.json({
-        success: true,
-        messages,
-      });
-    } catch (error) {
-      console.error("Error fetching contact messages:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-      });
-    }
-  });
+  // Note: GET /api/contact endpoint removed for security reasons.
+  // Contact messages should only be accessible through authenticated admin interface.
 
   const httpServer = createServer(app);
   return httpServer;
