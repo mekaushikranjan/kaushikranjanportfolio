@@ -15,11 +15,33 @@ export const useScrollAnimation = () => {
       });
     }, observerOptions);
 
+    // Handle regular fade-in-up elements
     const fadeElements = document.querySelectorAll('.fade-in-up');
     fadeElements.forEach(el => observer.observe(el));
 
+    // Handle project card animations with staggered effect
+    const projectCardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Add visible class to all project cards when the projects section comes into view
+          const projectCards = document.querySelectorAll('.project-card-animate');
+          projectCards.forEach(card => {
+            card.classList.add('visible');
+          });
+        }
+      });
+    }, observerOptions);
+
+    const projectsSection = document.querySelector('#projects');
+    if (projectsSection) {
+      projectCardObserver.observe(projectsSection);
+    }
+
     return () => {
       fadeElements.forEach(el => observer.unobserve(el));
+      if (projectsSection) {
+        projectCardObserver.unobserve(projectsSection);
+      }
     };
   }, []);
 

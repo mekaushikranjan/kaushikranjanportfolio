@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-muted/30">
+    <section id="about" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold font-poppins text-center mb-16">

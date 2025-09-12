@@ -43,7 +43,7 @@ const Navigation = () => {
       }`}>
         <div className="px-6">
           <div className={`flex justify-between items-center transition-all duration-500 ${
-            scrolled ? 'h-16' : 'h-16'
+            scrolled ? 'h-12' : 'h-16'
           }`}>
             {/* Profile Image, Name and Available for Work Text */}
             <div className="flex-shrink-0 flex items-center space-x-3">
@@ -56,12 +56,15 @@ const Navigation = () => {
                 <span className={`font-bold font-poppins gradient-text transition-all duration-300 ${
                   scrolled ? 'text-base' : 'text-xl'
                 }`} data-testid="profile-name">
-                  Kaushik Ranjan
+                  KAUSHIK RANJAN
                 </span>
                 {scrolled && (
-                  <span className="text-xs font-medium text-accent animate-pulse" data-testid="available-for-work">
-                    Available for work
-                  </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-accent rounded-full pulse-dot"></div>
+                    <span className="text-xs font-medium text-accent" data-testid="available-for-work">
+                      Available for work
+                    </span>
+                  </div>
                 )}
               </div>
             </div>

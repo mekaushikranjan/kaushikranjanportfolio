@@ -7,12 +7,16 @@ import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Home = () => {
   useScrollAnimation();
+  const { theme } = useTheme();
 
   return (
-    <div className="overflow-x-hidden">
+    <div className={`overflow-x-hidden min-h-screen transition-colors duration-300 ${
+      theme === 'dark' ? 'modern-hero-bg' : 'bg-background'
+    }`}>
       <Navigation />
       <Hero />
       <About />
