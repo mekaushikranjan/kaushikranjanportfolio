@@ -1,22 +1,43 @@
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Instagram, Send, Loader } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Send, Loader, Hand } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: 'Name',
+    email: 'Email',
+    service: '',
+    message: "Message"
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showHi, setShowHi] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const { toast } = useToast();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowHi(prev => !prev);
+    }, 4000); // Show "Hi" for 4 seconds, then hand waves for 4 seconds (2 waves)
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Cursor tracking effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -43,11 +64,10 @@ const Contact = () => {
           description: "Thank you for reaching out. I'll get back to you soon.",
         });
         setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          subject: '',
-          message: ''
+          name: 'Name',
+          email: 'Email',
+          service: '',
+          message: "Message"
         });
       } else {
         throw new Error('Failed to send message');
@@ -64,169 +84,146 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className={`pt-12 pb-20 relative block overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-black'}`}>
+      {/* Lime Cursor Dot */}
+      <div 
+        className="fixed w-4 h-4 bg-lime-400 rounded-full pointer-events-none z-50 transition-all duration-100 ease-out"
+        style={{
+          left: cursorPosition.x + 16,
+          top: cursorPosition.y + 12,
+          boxShadow: '0 0 20px rgba(163, 230, 53, 0.6), 0 0 40px rgba(163, 230, 53, 0.3)'
+        }}
+      />
+     
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="fade-in-up">
-          <h2 className="text-3xl md:text-4xl font-bold font-poppins text-center mb-16">
-            Get In <span className="gradient-text">Touch</span>
-          </h2>
-          
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div>
-              <h3 className="text-2xl font-semibold font-poppins mb-6">Let's Work Together</h3>
-              <p className="text-muted-foreground text-lg mb-8 leading-relaxed font-inter">
-                I'm always open to discussing new opportunities, creative projects, 
-                or potential collaborations. Whether you have a project in mind or 
-                just want to connect, I'd love to hear from you.
-              </p>
+        {/* Centered Title */}
+        <h2 className={`text-4xl md:text-5xl font-bold font-poppins text-center mb-16 ${theme === 'light' ? 'text-gray-800' : 'text-white'}`}>
+          CONTACT <span className="text-purple-600">ME</span>
+        </h2>
+        
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Portrait Image */}
+          <div className="relative mb-16 sm:mb-20 lg:mb-0">
+            <div className={`relative rounded-2xl overflow-visible aspect-[3/4] max-w-md mx-auto ${theme === 'light' ? 'bg-gray-200' : 'bg-gray-800'}`}>
+              {/* Portrait Image */}
+              <img 
+                src="/image3.jpg" 
+                alt="Kaushik Ranjan - Software Developer" 
+                className="w-full h-full object-cover rounded-2xl"
+              />
               
-              <div className="space-y-6">
-                <div className="flex items-center">
-                  <div className="bg-primary/10 p-3 rounded-lg mr-4">
-                    <Mail className="text-primary text-xl" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Email</h4>
-                    <p className="text-muted-foreground">kaushik.ranjan@example.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="bg-accent/10 p-3 rounded-lg mr-4">
-                    <Phone className="text-accent text-xl" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Phone</h4>
-                    <p className="text-muted-foreground">+91 98765 43210</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="bg-secondary/10 p-3 rounded-lg mr-4">
-                    <MapPin className="text-secondary-foreground text-xl" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Location</h4>
-                    <p className="text-muted-foreground">Bangalore, India</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Social Links */}
-              <div className="mt-8">
-                <h4 className="font-semibold mb-4">Follow Me</h4>
-                <div className="flex space-x-4">
-                  <a href="#" className="bg-primary/10 p-3 rounded-lg text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300" data-testid="social-github">
-                    <Github size={24} />
-                  </a>
-                  <a href="#" className="bg-accent/10 p-3 rounded-lg text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300" data-testid="social-linkedin">
-                    <Linkedin size={24} />
-                  </a>
-                  <a href="#" className="bg-secondary/10 p-3 rounded-lg text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground transition-all duration-300" data-testid="social-twitter">
-                    <Twitter size={24} />
-                  </a>
-                  <a href="#" className="bg-primary/10 p-3 rounded-lg text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300" data-testid="social-instagram">
-                    <Instagram size={24} />
-                  </a>
-                </div>
+              {/* Lime green hand button overlay */}
+              <div className="absolute -bottom-3 -left-3 sm:-bottom-4 sm:-left-4 md:-bottom-5 md:-left-5 lg:-bottom-6 lg:-left-6 w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 bg-lime-400 rounded-full flex items-center justify-center shadow-xl z-10">
+                {showHi ? (
+                  <span className="text-green-800 text-lg sm:text-xl font-bold">Hi</span>
+                ) : (
+                  <Hand className="text-green-800 text-xl sm:text-2xl transform rotate-12 animate-wave" />
+                )}
               </div>
             </div>
+          </div>
+          
+          {/* Right Side - Contact Form */}
+          <div className={`${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
+            <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6 uppercase tracking-wide">
+              LET'S WORK TOGETHER
+            </h2>
+            <p className={`text-lg mb-8 leading-relaxed ${theme === 'light' ? 'text-gray-600' : 'text-white/80'}`}>
+              Let's build something impactful together—whether it's your brand, your website, or your next big idea.
+            </p>
             
-            {/* Contact Form */}
-            <div className="bg-card border border-border rounded-xl p-8 shadow-lg">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium mb-2">First Name</label>
-                    <Input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      placeholder="John"
-                      required
-                      data-testid="input-firstname"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium mb-2">Last Name</label>
-                    <Input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      placeholder="Doe"
-                      required
-                      data-testid="input-lastname"
-                    />
-                  </div>
-                </div>
-                
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name and Email Row */}
+              <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
+                  <label htmlFor="name" className="block text-lime-400 font-medium mb-2 text-sm">
+                    Name
+                  </label>
+                  <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`rounded-lg focus:border-lime-400 focus:ring-lime-400 ${theme === 'light' ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500' : 'bg-gray-800 border-gray-700 text-gray-300 placeholder-gray-500'}`}
+                    required
+                    data-testid="input-name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-lime-400 font-medium mb-2 text-sm">
+                    Email
+                  </label>
                   <Input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="john@example.com"
+                    className={`rounded-lg focus:border-lime-400 focus:ring-lime-400 ${theme === 'light' ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500' : 'bg-gray-800 border-gray-700 text-gray-300 placeholder-gray-500'}`}
                     required
                     data-testid="input-email"
                   />
                 </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
-                  <Input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    placeholder="Project Discussion"
-                    required
-                    data-testid="input-subject"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Tell me about your project..."
-                    required
-                    data-testid="input-message"
-                  />
-                </div>
-                
+              </div>
+              
+              {/* Service Dropdown */}
+              <div>
+                <label htmlFor="service" className="block text-lime-400 font-medium mb-2 text-sm">
+                  Service Needed ?
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service}
+                  onChange={handleInputChange}
+                  className={`w-full rounded-lg px-3 py-2 focus:border-lime-400 focus:ring-lime-400 ${theme === 'light' ? 'bg-white border border-gray-300 text-gray-900' : 'bg-gray-800 border border-gray-700 text-gray-300'}`}
+                  data-testid="select-service"
+                >
+                  <option value="" className={theme === 'light' ? 'text-gray-500' : 'text-gray-500'}>Select...</option>
+                  <option value="web-development" className={theme === 'light' ? 'text-gray-900' : 'text-gray-300'}>Web Development</option>
+                  <option value="mobile-development" className={theme === 'light' ? 'text-gray-900' : 'text-gray-300'}>Mobile Development</option>
+                  <option value="ui-ux-design" className={theme === 'light' ? 'text-gray-900' : 'text-gray-300'}>UI/UX Design</option>
+                  <option value="consulting" className={theme === 'light' ? 'text-gray-900' : 'text-gray-300'}>Consulting</option>
+                </select>
+              </div>
+              
+              {/* Message Textarea */}
+              <div>
+                <label htmlFor="message" className="block text-lime-400 font-medium mb-2 text-sm">
+                  What Can I Help You...
+                </label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className={`rounded-lg focus:border-lime-400 focus:ring-lime-400 resize-none ${theme === 'light' ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500' : 'bg-gray-800 border-gray-700 text-gray-300 placeholder-gray-500'}`}
+                  required
+                  data-testid="input-message"
+                />
+              </div>
+              
+              {/* Submit Button */}
+              <div className="flex justify-start">
                 <Button 
                   type="submit" 
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 transform hover:-translate-y-1"
+                  className={`w-32 border border-lime-400 text-lime-400 font-poppins font-bold py-6 px-8 rounded-3xl transition-all duration-300 uppercase tracking-wide hover:bg-lime-400 hover:text-black ${theme === 'light' ? 'bg-white' : 'bg-black'}`}
                   disabled={isSubmitting}
                   data-testid="button-submit"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <Loader className="mr-2 animate-spin" size={16} />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="ml-2" size={16} />
-                    </>
-                  )}
+                {isSubmitting ? (
+                  <>
+                    <Loader className="mr-2 animate-spin" size={16} />
+                    Sending...
+                  </>
+                ) : (
+                  'SUBMIT'
+                )}
                 </Button>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

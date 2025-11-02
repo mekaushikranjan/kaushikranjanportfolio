@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div className={`overflow-x-hidden min-h-screen transition-colors duration-300 ${
-      theme === 'dark' ? 'modern-hero-bg' : 'bg-background'
+      theme === 'dark' ? 'bg-black' : 'bg-white'
     }`}>
       <Navigation />
       <Hero />

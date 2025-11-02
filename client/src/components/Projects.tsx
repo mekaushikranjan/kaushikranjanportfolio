@@ -1,160 +1,198 @@
 import { ExternalLink, Github } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useState } from 'react';
 
 const Projects = () => {
-  const projects = [
+  const { theme } = useTheme();
+  const [visibleProjects, setVisibleProjects] = useState(2);
+
+  const allProjects = [
     {
-      title: "ShopEase Redesign Sprint",
-      description: "Redesigned the checkout e-commerce app to enhance user experience. Focused on simplifying navigation, optimizing the checkout process, and incorporating a sleek.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "UI / UX Design",
-      technologies: ["React", "Node.js", "MongoDB"],
+      title: "Streamify - Live Streaming Platform",
+      description: "A full-stack live streaming platform built with modern technologies, allowing users to stream, create, and connect. Features real-time video streaming, user authentication, content discovery, and interactive live chat. Built with cutting-edge web technologies for seamless streaming experiences.",
+      image: "/streamify.png",
+      category: "Full-Stack Development",
+      technologies: ["Nest.js", "Cloudflare", "LiveKit", "PostgreSQL", "Vite", "React", "TypeScript"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
-      title: "Task Management Platform",
-      description: "Collaborative workspace application with real-time updates, team collaboration, and advanced project management features.",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      title: "Luxury Dubai Real Estate",
+      description: "A premium real estate platform showcasing exclusive properties in Dubai's most prestigious locations. Features property listings, virtual tours, market insights, and investment advisory services. Built with modern web technologies for a seamless luxury experience.",
+      image: "/luxuryDubai.png",
       category: "Web Development",
-      technologies: ["Vue.js", "Python", "PostgreSQL"],
-      liveUrl: "#",
-      githubUrl: "#"
+      technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+      liveUrl: "https://real-state-swart-eight.vercel.app/",
+      githubUrl: "https://github.com/mekaushikranjan/RealState"
     },
     {
-      title: "Weather Analytics Dashboard",
-      description: "Real-time weather tracking application with predictive analytics, interactive maps, and detailed forecasting capabilities.",
-      image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "Data Visualization",
-      technologies: ["React", "TypeScript", "D3.js"],
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      title: "Social Connect Platform",
-      description: "Feature-rich social networking platform with real-time messaging, content sharing, and advanced privacy controls.",
-      image: "https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "Mobile Development",
-      technologies: ["React Native", "Node.js", "Socket.io"],
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      title: "Learning Management System",
-      description: "Comprehensive e-learning platform with course management, progress tracking, and interactive assessment tools.",
-      image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      title: "Royal Drive - Luxury Car Rental",
+      description: "Premium luxury car rental platform for Dubai featuring an extensive fleet of supercars, luxury vehicles, and SUVs. Includes booking system, location-based search, premium insurance coverage, and 24/7 concierge services for an exceptional rental experience.",
+      image: "/Royaldrive.png",
       category: "Web Development",
-      technologies: ["Vue.js", "Django", "AWS"],
-      liveUrl: "#",
-      githubUrl: "#"
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+      liveUrl: "https://rental-cars-swart.vercel.app/",
+      githubUrl: "https://github.com/mekaushikranjan/RentalCars"
     },
     {
-      title: "Personal Finance Tracker",
-      description: "Smart finance management app with budget tracking, expense categorization, and financial goal setting features.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "Mobile Development",
-      technologies: ["React Native", "Python", "Chart.js"],
-      liveUrl: "#",
-      githubUrl: "#"
+      title: "Skyline Estates",
+      description: "Luxury real estate platform connecting buyers with premium properties worldwide. Features property listings, virtual tours, investment advisory, and exclusive membership programs. Designed for high-end clientele seeking prestigious real estate opportunities.",
+      image: "/skyline.png",
+      category: "Web Development",
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Responsive Design"],
+      liveUrl: "https://skyline-estate.vercel.app/",
+      githubUrl: "https://github.com/mekaushikranjan/SKyline-Estate"
+    },
+    {
+      title: "FaceVault - AI Photo Organizer",
+      description: "AI-powered photo management application that automatically organizes photos by detecting and grouping faces. Features smart album creation, secure cloud storage, and intuitive interface for easily managing and accessing memories across devices.",
+      image: "/facevault.png",
+      category: "AI & Web Development",
+      technologies: ["React", "AI/ML", "Face Detection", "Cloud Storage", "TypeScript"],
+      liveUrl: "https://face-vault.vercel.app/",
+      githubUrl: "https://github.com/mekaushikranjan/facevalutbackend"
+    },
+    {
+      title: "Happyhome - Home Renovation Services",
+      description: "Premium home renovation and interior design platform offering comprehensive renovation services. Features service galleries, consultation booking, project showcases, and a modern interface designed to help clients transform their living spaces.",
+      image: "/Happyhome.png",
+      category: "Web Development",
+      technologies: ["React", "Node.js", "Tailwind CSS", "REST API"],
+      liveUrl: "https://happyhome-frontend.onrender.com/",
+      githubUrl: "https://github.com/mekaushikranjan/HappyHome-frontend"
     }
   ];
 
-  const getCategoryColors = (category: string) => {
-    const colorMap: { [key: string]: string } = {
-      'UI / UX Design': 'category-badge',
-      'Web Development': 'bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide',
-      'Data Visualization': 'bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide',
-      'Mobile Development': 'bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide'
-    };
-    return colorMap[category] || 'category-badge';
+  // Get currently visible projects
+  const projects = allProjects.slice(0, visibleProjects);
+
+  // Handle load more functionality
+  const handleLoadMore = () => {
+    setVisibleProjects(prev => Math.min(prev + 2, allProjects.length));
   };
 
-  const getTechColors = (tech: string) => {
-    const colorMap: { [key: string]: string } = {
-      'React': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-      'Node.js': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-      'MongoDB': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-      'Vue.js': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-      'Python': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
-      'PostgreSQL': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-      'TypeScript': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-      'D3.js': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-      'Socket.io': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
-      'Django': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-      'AWS': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-      'React Native': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300',
-      'Chart.js': 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300'
-    };
-    return colorMap[tech] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
-  };
+  // Check if there are more projects to load
+  const hasMoreProjects = visibleProjects < allProjects.length;
+
+
 
   return (
-    <section id="projects" className="py-20 fluid-background">
+    <section id="projects" className={`w-full py-20 pt-20 relative block ${theme === 'light' ? 'bg-white' : 'bg-black'}`}>
+      {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="fade-in-up">
-          <h2 className="text-3xl md:text-4xl font-bold font-poppins text-center mb-16">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div key={index} className="project-card-animate modern-project-card rounded-2xl overflow-hidden">
-                <div className="relative">
-                  <img 
-                    src={project.image}
-                    alt={`${project.title} project showcase`}
-                    className="w-full h-48 object-cover"
-                    data-testid={`project-image-${index}`}
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className={getCategoryColors(project.category)}>
-                      {project.category}
-                    </span>
-                  </div>
+        <h2 className={`text-3xl md:text-4xl font-bold font-poppins mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
+          Featured <span className={`${theme === 'light' ? 'text-purple-600' : 'text-purple-400'}`}>Projects</span>
+        </h2>
+        <p className={`text-base ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
+          These selected projects reflect my passion for blending strategy with creativity — solving real problems through thoughtful design and impactful storytelling.
+        </p>
+      </div>
+      
+      {/* Projects Container with Fixed Heights */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 relative">
+        {/* Projects Grid with Explicit Heights */}
+        <div className="space-y-20">
+          {projects.map((project, index) => (
+            <div 
+              key={index}
+              className="w-full rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] bg-white/5 backdrop-blur-sm border border-white/10 relative z-10"
+              style={{ minHeight: '200px' }}
+            >
+              {/* Project Image with All Content Overlayed */}
+              <div className="relative w-full overflow-hidden isolate" style={{ height: '600px' }}>
+                <img 
+                  src={project.image}
+                  alt={`${project.title} project showcase`}
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-out"
+                  loading="lazy"
+                />
+                
+                {/* Dark Overlay Gradient for Better Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+                
+                {/* Category Badge */}
+                <div className="absolute top-6 left-6 z-10">
+                  <span className="inline-block bg-purple-600/90 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide shadow-lg border border-white/20">
+                    {project.category}
+                  </span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold font-poppins mb-3 text-foreground">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                
+                {/* All Content Overlayed on Image */}
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 z-10">
+                  {/* Project Title */}
+                  <h3 className="text-3xl font-bold mb-4 text-white drop-shadow-lg">
+                    {project.title}
+                  </h3>
+                  
+                  {/* Project Description */}
+                  <p className="text-lg leading-relaxed mb-6 text-white/90 drop-shadow-md max-w-3xl">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 mb-8">
                     {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className={`px-3 py-1 rounded-full text-xs font-medium ${getTechColors(tech)}`}>
+                      <span 
+                        key={techIndex} 
+                        className="px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm border border-white/30"
+                      >
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <div className="flex space-x-4">
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-4">
                     <a 
                       href={project.liveUrl}
-                      className="text-primary hover:text-primary/80 transition-colors duration-300 flex items-center text-sm font-medium"
-                      data-testid={`project-live-${index}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-200 bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30 hover:border-white/50"
                     >
-                      <ExternalLink size={14} className="mr-1" /> Live Demo
+                      <ExternalLink size={16} className="inline mr-2" /> Live Demo
                     </a>
                     <a 
                       href={project.githubUrl}
-                      className="text-muted-foreground hover:text-foreground transition-colors duration-300 flex items-center text-sm font-medium"
-                      data-testid={`project-github-${index}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-200 bg-transparent text-white hover:bg-white/10 backdrop-blur-sm border border-white/30 hover:border-white/50"
                     >
-                      <Github size={14} className="mr-1" /> GitHub
+                      <Github size={16} className="inline mr-2" /> GitHub
                     </a>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-          
-          <div className="text-center mt-12">
-            <a 
-              href="#" 
-              className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300"
-              data-testid="button-view-all-projects"
-            >
-              View All Projects
-              <ExternalLink size={16} className="ml-2" />
-            </a>
-          </div>
+            </div>
+          ))}
         </div>
+        
+        {/* Load More Projects Button */}
+        {hasMoreProjects && (
+          <div className="text-center mt-20 py-10 relative z-20">
+            <button 
+              onClick={handleLoadMore}
+              className={`group px-10 py-5 rounded-full font-semibold text-xl transition-all duration-300 border-2 inline-flex items-center cursor-pointer z-20 ${
+                theme === 'light' 
+                  ? 'border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white bg-white shadow-lg' 
+                  : 'border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-black bg-black shadow-lg'
+              }`}
+            >
+              View More Projects
+              <svg className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
+        )}
+        
+        {/* All Projects Loaded Message */}
+        {!hasMoreProjects && (
+          <div className="text-center mt-20 py-10">
+            <p className={`text-lg ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
+              🎉 All projects loaded! Check back soon for more amazing work.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

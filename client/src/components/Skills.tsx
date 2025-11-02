@@ -1,8 +1,43 @@
 import { useEffect, useState } from 'react';
-import { Code, Server, Database } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
+import { 
+  SiReact, 
+  SiTypescript, 
+  SiNextdotjs, 
+  SiTailwindcss, 
+  SiVuedotjs, 
+  SiNodedotjs, 
+  SiPython, 
+  SiExpress, 
+  SiDjango, 
+  SiMongodb, 
+  SiPostgresql, 
+  SiDocker, 
+  SiAmazon, 
+  SiGit, 
+  SiJavascript, 
+  SiHtml5, 
+  SiCss3,
+  SiNpm,
+  SiYarn,
+  SiWebpack,
+  SiBabel,
+  SiEslint,
+  SiPrettier
+} from 'react-icons/si';
+import { 
+  FaCode, 
+  FaServer, 
+  FaDatabase, 
+  FaChevronDown,
+  FaChevronUp,
+  FaCheck
+} from 'react-icons/fa';
 
 const Skills = () => {
+  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,103 +56,141 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      title: "Frontend Development",
-      icon: Code,
-      color: "text-primary",
+      title: "FRONTEND DEVELOPMENT",
+      icon: FaCode,
+      color: "text-blue-500",
       skills: [
-        { name: "React.js", level: 90 },
-        { name: "TypeScript", level: 85 },
-        { name: "Tailwind CSS", level: 95 },
-        { name: "Vue.js", level: 75 }
+        { name: "React.js", icon: SiReact, color: "text-blue-500" },
+        { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
+        { name: "Next.js", icon: SiNextdotjs, color: "text-gray-800 dark:text-white" },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-500" },
+        { name: "Vue.js", icon: SiVuedotjs, color: "text-green-500" },
+        { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+        { name: "HTML5", icon: SiHtml5, color: "text-orange-500" },
+        { name: "CSS3", icon: SiCss3, color: "text-blue-500" }
       ]
     },
     {
-      title: "Backend Development",
-      icon: Server,
-      color: "text-accent",
+      title: "BACKEND DEVELOPMENT",
+      icon: FaServer,
+      color: "text-green-500",
       skills: [
-        { name: "Node.js", level: 88 },
-        { name: "Python", level: 92 },
-        { name: "Express.js", level: 85 },
-        { name: "Django", level: 78 }
+        { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
+        { name: "Python", icon: SiPython, color: "text-yellow-500" },
+        { name: "Express.js", icon: SiExpress, color: "text-gray-600 dark:text-gray-300" },
+        { name: "Django", icon: SiDjango, color: "text-green-700" },
+        { name: "RESTful APIs", icon: FaServer, color: "text-green-500" },
+        { name: "GraphQL", icon: FaCode, color: "text-pink-500" }
       ]
     },
     {
-      title: "Database & Tools",
-      icon: Database,
-      color: "text-secondary-foreground",
+      title: "DATABASE & CLOUD",
+      icon: FaDatabase,
+      color: "text-purple-500",
       skills: [
-        { name: "MongoDB", level: 90 },
-        { name: "PostgreSQL", level: 82 },
-        { name: "Docker", level: 75 },
-        { name: "AWS", level: 80 }
+        { name: "MongoDB", icon: SiMongodb, color: "text-green-600" },
+        { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-600" },
+        { name: "Docker", icon: SiDocker, color: "text-blue-500" },
+        { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
+        { name: "Redis", icon: FaDatabase, color: "text-red-500" },
+        { name: "MySQL", icon: FaDatabase, color: "text-blue-500" }
+      ]
+    },
+    {
+      title: "TOOLS & WORKFLOW",
+      icon: FaCode,
+      color: "text-orange-500",
+      skills: [
+        { name: "Git", icon: SiGit, color: "text-orange-500" },
+        { name: "NPM", icon: SiNpm, color: "text-red-500" },
+        { name: "Yarn", icon: SiYarn, color: "text-blue-400" },
+        { name: "Webpack", icon: SiWebpack, color: "text-blue-600" },
+        { name: "ESLint", icon: SiEslint, color: "text-purple-500" },
+        { name: "Prettier", icon: SiPrettier, color: "text-gray-600" }
       ]
     }
   ];
 
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className={`py-20 ${theme === 'light' ? 'bg-white' : 'bg-black'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="fade-in-up">
-          <h2 className="text-3xl md:text-4xl font-bold font-poppins text-center mb-16">
-            Skills & <span className="gradient-text">Technologies</span>
+          <h2 className={`text-3xl md:text-4xl font-bold font-poppins text-center mb-16 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
+            Skills & <span className={`${theme === 'light' ? 'text-purple-600' : 'text-purple-400'}`}>Technologies</span>
           </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {skillCategories.map((category, categoryIndex) => (
-              <div key={categoryIndex} className="bg-card border border-border rounded-xl p-6 shadow-lg">
-                <div className="flex items-center mb-6">
-                  <category.icon className={`${category.color} text-2xl mr-3`} size={28} />
-                  <h3 className="text-xl font-semibold font-poppins">{category.title}</h3>
-                </div>
-                <div className="space-y-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex}>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm font-medium">{skill.name}</span>
-                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                      </div>
-                      <div className="w-full bg-muted rounded-full h-2">
-                        <div 
-                          className={`skill-bar h-2 rounded-full ${
-                            category.color === 'text-primary' ? 'bg-primary' :
-                            category.color === 'text-accent' ? 'bg-accent' :
-                            'bg-secondary-foreground'
-                          }`}
-                          style={{ 
-                            width: isVisible ? `${skill.level}%` : '0%',
-                            transition: 'width 1.5s ease-in-out'
-                          }}
-                        ></div>
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Left Side - Accordion Skills */}
+            <div className="w-full">
+              {skillCategories.map((category, categoryIndex) => (
+                <div key={categoryIndex} className={`mb-6 border-b-2 ${
+                  activeCategory === categoryIndex 
+                    ? 'border-lime-400' 
+                    : `${theme === 'light' ? 'border-gray-200' : 'border-gray-700'}`
+                }`}>
+                  {/* Accordion Header */}
+                  <button
+                    onClick={() => setActiveCategory(activeCategory === categoryIndex ? -1 : categoryIndex)}
+                    className="w-full px-6 py-4 flex items-center justify-between transition-all duration-300"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <span className="text-2xl font-bold text-lime-400">{categoryIndex + 1}</span>
+                      <h3 className={`text-lg font-bold font-poppins uppercase tracking-wide ${
+                        activeCategory === categoryIndex 
+                          ? 'text-lime-600 dark:text-lime-400' 
+                          : `${theme === 'light' ? 'text-gray-900' : 'text-white'}`
+                      }`}>
+                        {category.title}
+                      </h3>
+                    </div>
+                    {activeCategory === categoryIndex ? (
+                      <FaChevronUp className="text-lime-400 text-xl" />
+                    ) : (
+                      <FaChevronDown className={`text-xl ${theme === 'light' ? 'text-gray-400' : 'text-gray-500'}`} />
+                    )}
+                  </button>
+                  
+                  {/* Accordion Content */}
+                  {activeCategory === categoryIndex && (
+                    <div className="px-6 py-6">
+                      <div className="grid grid-cols-2 gap-4">
+                        {category.skills.map((skill, skillIndex) => (
+                          <div key={skillIndex} className="flex items-center space-x-3 p-3 transition-colors duration-200">
+                            <div className="w-6 h-6 rounded-full bg-lime-400 flex items-center justify-center">
+                              <FaCheck className="text-white text-xs" />
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <skill.icon className={`${skill.color} text-lg`} size={20} />
+                              <span className={`text-sm font-medium ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
+                                {skill.name}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Technology Icons */}
-          <div className="mt-16 text-center">
-            <h3 className="text-xl font-semibold font-poppins mb-8">Technologies I Work With</h3>
-            <div className="grid grid-cols-4 md:grid-cols-8 gap-6 max-w-4xl mx-auto">
-              {[
-                { name: 'React', icon: '⚛️' },
-                { name: 'Node.js', icon: '🟢' },
-                { name: 'Python', icon: '🐍' },
-                { name: 'JavaScript', icon: '🟨' },
-                { name: 'Git', icon: '📚' },
-                { name: 'Docker', icon: '🐳' },
-                { name: 'AWS', icon: '☁️' },
-                { name: 'MongoDB', icon: '🍃' }
-              ].map((tech, index) => (
-                <div key={index} className="flex flex-col items-center group">
-                  <div className="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
-                    {tech.icon}
-                  </div>
-                  <span className="text-xs text-muted-foreground">{tech.name}</span>
+                  )}
                 </div>
               ))}
+            </div>
+
+            {/* Right Side - Computer Image */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                {/* Computer Setup Container */}
+                <div className="relative rounded-2xl overflow-hidden aspect-[6/7] max-w-md mx-auto shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 transform rotate-3 hover:rotate-6">
+                  {/* Computer Image */}
+                  <img 
+                    src="/software.jpg" 
+                    alt="Software engineer working with gadgets in room" 
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute top-4 right-4 w-3 h-3 bg-lime-400 rounded-full animate-pulse shadow-lg"></div>
+                  <div className="absolute bottom-4 left-4 w-2 h-2 bg-purple-400 rounded-full animate-pulse shadow-lg" style={{animationDelay: '1s'}}></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

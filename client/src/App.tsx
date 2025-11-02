@@ -22,9 +22,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <TooltipProvider>
-          <Toaster />
-          <Router />
-          <BottomThemeToggle />
+          {/* Space Background - only visible in dark mode */}
+          <div className="space-background"></div>
+          <div className="neon-dot"></div>
+          
+          <div className="space-content">
+            <Toaster />
+            <Router />
+            <BottomThemeToggle />
+          </div>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
