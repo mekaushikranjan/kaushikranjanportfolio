@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "vite build",
+  "outputDirectory": "dist/public",
+  "installCommand": "npm install",
+  "rewrites": [
+    {
+      "source": "/api/contact",
+      "destination": "/api/contact"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
