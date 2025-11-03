@@ -107,7 +107,7 @@ const Contact = () => {
             <div className={`relative rounded-2xl overflow-visible aspect-[3/4] max-w-md mx-auto ${theme === 'light' ? 'bg-gray-200' : 'bg-gray-800'}`}>
               {/* Portrait Image */}
               <img 
-                src="/image3.jpg" 
+                src="/kaushikimage.png"
                 alt="Kaushik Ranjan - Software Developer" 
                 className="w-full h-full object-cover rounded-2xl"
               />

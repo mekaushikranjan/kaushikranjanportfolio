@@ -43,7 +43,7 @@ const Hero = () => {
           <div className="relative flex justify-center order-2 lg:order-2 my-4 sm:my-6 md:my-8">
             <div className="relative hero-professional-image">
               <img 
-                src="/image1.jpg" 
+                src="/kaushikimage.png"
                 alt="Kaushik Ranjan - Software Developer" 
                 className="w-48 h-64 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-72 lg:h-96 xl:w-80 xl:h-[450px] 2xl:w-96 2xl:h-[500px] object-cover rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl"
                 data-testid="hero-professional-image"

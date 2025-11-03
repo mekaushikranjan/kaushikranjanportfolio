@@ -74,7 +74,7 @@ const About = () => {
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
                 <img 
-                  src="/image2.jpg" 
+                  src="/kaushikimage.png"
                   alt="Kaushik Ranjan - Professional Portrait" 
                   className="w-72 h-96 md:w-80 md:h-[450px] lg:w-96 lg:h-[500px] object-cover rounded-3xl shadow-2xl"
                   data-testid="about-image"

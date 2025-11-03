@@ -68,7 +68,7 @@ const Navigation = () => {
                 scrolled || showWelcome ? 'w-8 h-8' : 'w-10 h-10'
               }`} data-testid="profile-image">
                 <img 
-                  src="/image2.jpg"
+                  src="/kaushikimage2.png"
                   alt="Kaushik Ranjan - Software Developer"
                   className="w-full h-full object-cover"
                 />

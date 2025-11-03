@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2 text-center sm:text-left">
             <span className={`text-xs sm:text-sm ${theme === 'light' ? 'text-white' : 'text-black'}`}>Location :</span>
-            <span className={`font-bold text-xs sm:text-sm ${theme === 'light' ? 'text-white' : 'text-black'}`}>Bihar, India</span>
+            <span className={`font-bold text-xs sm:text-sm ${theme === 'light' ? 'text-white' : 'text-black'}`}>Punjab, India</span>
           </div>  
           {/* Social Media */}
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
@@ -92,8 +92,12 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               <span className={`text-xs sm:text-sm ${theme === 'light' ? 'text-white' : 'text-black'}`}>Created by</span>
               <div className="flex items-center gap-2">
-                <div className={`w-6 h-6 sm:w-8 sm:h-8 ${theme === 'light' ?  'bg-lime-100' : 'bg-blue-600' } rounded-full flex items-center justify-center`}>
-                  <span className={`${theme === 'light' ? 'text-black' : 'text-white'} font-bold text-xs sm:text-sm`}>KR</span>
+                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden`}>
+                  <img 
+                    src="/kaushikimage2.png" 
+                    alt="Kaushik Ranjan - Profile" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <span className={`underline cursor-pointer ${theme === 'light' ? 'hover:text-gray-300' : 'hover:text-gray-600'} transition-colors duration-300 font-medium text-xs sm:text-sm ${theme === 'light' ? 'text-white' : 'text-black'}`}>
                   Kaushik Ranjan
